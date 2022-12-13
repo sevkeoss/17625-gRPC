@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+// A book represents one of the items in the library's inventory.
+message Book {
+
+  // The book's isbn-13 number
+  string isbn = 1;
+
+  // The book's title
+  string title = 2;
+
+  // The book's author
+  string author = 3;
+
+  // List of currently supported book genres
+  enum Genre {
+    GENRE_UNSPECIFIED = 0;
+    SCIENCE_FICTION = 1;
+    ACTION = 2;
+    MYSTERY = 3;
+  }
+
+  // The book's genre
+  Genre genre = 4;
+
+  // The year the book was published
+  uint32 publishingYear = 5;
+}
+
+// An InventoryItem represents an item in the library. Currently, only books are
+// supported.
+message InventoryItem {
+
+  // The unique number for the item
+  uint32 inventoryNumber = 1;
+
+  // The type of item. Currently, only supports a book.
+  oneof inventory { Book book = 2; }
+
+  // List of currently supported item statuses
+  enum Status {
+    AVAILABLE = 0;
+    TAKEN = 1;
+  }
+
+  // The item's status
+  Status status = 3;
+}

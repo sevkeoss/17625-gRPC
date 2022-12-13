@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+import "inventory.proto";
+
+// The request object for adding a new book to the list of books.
+message CreateBookRequest { Book book = 1; }
+
+// The response object after creating a new book.
+message CreateBookResponse { bool success = 1; }
+
+// The request object for retrieving a book's details.
+message GetBookRequest { string isbn = 1; }
+
+// The response object containing the book's details.
+message GetBookResponse { Book book = 1; }
+
+// The Inventory Service interface.
+service Inventory {
+
+  // A client-to-server RPC.
+  //
+  // Accepts a book with details and adds it to the list of books if it does not
+  // exist.
+  //
+  // Returns True if the book was added, otherwise an empty response for False.
+  rpc CreateBook(CreateBookRequest) returns (CreateBookResponse) {}
+
+  // A simple RPC.
+  //
+  // Obtains the details of a given book.
+  //
+  // An empty response is returned if the book with the given isbn is not found.
+  rpc GetBook(GetBookRequest) returns (GetBookResponse) {}
+}
